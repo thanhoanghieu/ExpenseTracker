@@ -1,0 +1,8 @@
+const modal = document.getElementById('add-modal');
+const form = document.getElementById('transaction-form');
+const baseAction = form.action;
+function showModal(id){if(id!=='add-modal')return;modal.classList.add('visible');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';updateCategories();}
+function hideModal(){modal.classList.remove('visible');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';form.reset();form.action=baseAction;document.getElementById('modal-title').textContent='Thêm giao dịch mới';document.getElementById('submit-label').textContent='Lưu giao dịch';updateCategories();}
+function updateCategories(selected){const kind=form.querySelector('input[name="kind"]:checked').value;const select=document.getElementById('category_id');select.innerHTML='';for(const c of categories.filter(c=>c.kind===kind)){const option=document.createElement('option');option.value=c.id;option.textContent=c.name;select.appendChild(option);}if(selected)select.value=selected;}
+function editTransaction(id,kind,category,amount,note,day){form.action=`/transactions/${id}/edit`;form.querySelector(`input[name="kind"][value="${kind}"]`).checked=true;form.elements.amount.value=amount;form.elements.note.value=note;form.elements.occurred_on.value=day;updateCategories(category);document.getElementById('modal-title').textContent='Chỉnh sửa giao dịch';document.getElementById('submit-label').textContent='Lưu thay đổi';showModal('add-modal');}
+modal.addEventListener('click',e=>{if(e.target===modal)hideModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')hideModal();});updateCategories();
