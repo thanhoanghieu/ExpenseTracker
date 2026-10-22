@@ -1,0 +1,37 @@
+# Exporter network assignments for segmented Expense Tracker
+services:
+  cadvisor:
+    image: ghcr.io/google/cadvisor:0.55.1
+    container_name: expense_cadvisor
+    restart: unless-stopped
+    privileged: true
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:ro
+    - /sys:/sys:ro
+    - /var/lib/docker:/var/lib/docker:ro
+    networks:
+    - monitor-net
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:1.5.1
+    container_name: expense_nginx_exporter
+    restart: unless-stopped
+    network_mode: service:nginx
+    command:
+    - --nginx.scrape-uri=http://127.0.0.1/nginx_status
+    depends_on:
+    - nginx
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.20.1
+    container_name: expense_postgres_exporter
+    restart: unless-stopped
+    user: 1000:1000
+    environment:
+      DATA_SOURCE_URI: db:5432/expensetracker?sslmode=disable
+      DATA_SOURCE_USER: metrics_user
+      DATA_SOURCE_PASS_FILE: /run/secrets/pg_password
+    volumes:
+    - ./secrets/postgres_exporter_password:/run/secrets/pg_password:ro
+    networks:
+    - backend-net
+    - monitor-net
