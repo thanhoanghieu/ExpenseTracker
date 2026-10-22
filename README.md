@@ -200,12 +200,12 @@ docker compose -f docker-compose.yml -f compose.monitoring.yaml logs --tail=50 w
 
 | Dịch vụ | Địa chỉ trên Ubuntu | Ghi chú |
 |---|---|---|
-| Expense Tracker | `http://localhost/` hoặc `http://IP_MAY_AO/` | Nginx public cổng 80 |
-| Health Check | `http://localhost/health` | Trả JSON trạng thái ứng dụng/database |
-| Grafana | `http://127.0.0.1:3000` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
-| pgAdmin | `http://127.0.0.1:5050` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
-| Prometheus | `http://127.0.0.1:9090` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
-| Loki | `http://127.0.0.1:3100` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
+| Expense Tracker | `http://192.168.77.129` | Nginx public cổng 80 |
+| Health Check | `http://192.168.77.129:3000` | Trả JSON trạng thái ứng dụng/database |
+| Grafana | `http://192.168.77.129:3000` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
+| pgAdmin | `http://192.168.77.129:5050` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
+| Prometheus | `http://192.168.77.129:9090` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
+| Loki | `http://192.168.77.129:3100/ready` | Chỉ truy cập từ máy chủ hoặc SSH Tunnel |
 
 ### SSH Tunnel trên Windows
 

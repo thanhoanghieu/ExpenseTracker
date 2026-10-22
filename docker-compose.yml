@@ -21,7 +21,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:?PGADMIN_PASSWORD must be set in
         .env}
     ports:
-    - 127.0.0.1:5050:80
+    - 192.168.77.129:5050:80
     volumes:
     - expense_pgadmin_data:/var/lib/pgadmin
     networks:
@@ -60,7 +60,7 @@ services:
     volumes:
     - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     ports:
-    - 127.0.0.1:9090:9090
+    - 192.168.77.129:9090:9090
     networks:
     - monitor-net
   grafana:
@@ -68,7 +68,7 @@ services:
     container_name: grafana
     restart: unless-stopped
     ports:
-    - 127.0.0.1:3000:3000
+    - 192.168.77.129:3000:3000
     volumes:
     - expense_grafana_data:/var/lib/grafana
     networks:
@@ -78,7 +78,7 @@ services:
     container_name: loki
     restart: unless-stopped
     ports:
-    - 127.0.0.1:3100:3100
+    - 192.168.77.129:3100:3100
     networks:
     - monitor-net
   promtail:
